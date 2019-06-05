@@ -1,23 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useStore } from './store/useStore';
 import './App.css';
+import { modifyText, add, minus } from './store/actions';
 
 function App() {
+  const { state, dispatch } = useStore();
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <input value={state.test.text || ''} onChange={(e) => dispatch(modifyText(e.target.value))} />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {state.test.text}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <p>{state.count}</p>
+        <button onClick={() => dispatch(add())}>add</button>
+        <button onClick={() => dispatch(minus())}>minus</button>
       </header>
     </div>
   );
